@@ -13,9 +13,9 @@ import java.util.logging.Logger;
 public class HibernateMaven {
   
     public static void main(String[] args) {
-//        EntityManagerUtil.getEntityManagerFactory();
+        EntityManagerUtil.getEntityManagerFactory();
         try {
-            new ClienteDAO().save(new Cliente());
+            new MenuPrincipal().setVisible(true);
         } catch (Exception e) {
             PetDoguiLog.erroPersistencia(e);
         }

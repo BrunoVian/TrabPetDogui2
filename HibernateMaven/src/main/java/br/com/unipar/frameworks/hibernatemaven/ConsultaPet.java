@@ -10,7 +10,6 @@ import br.com.unipar.frameworks.hibernatemaven.tableModels.ClienteTableModel;
 import br.com.unipar.frameworks.hibernatemaven.tableModels.PetTableModel;
 import br.com.unipar.frameworks.model.Pet;
 import br.com.unipar.frameworks.model.dao.PetDAO;
-import com.sun.glass.events.WindowEvent;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 

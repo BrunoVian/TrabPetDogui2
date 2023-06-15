@@ -12,10 +12,10 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
             <property name="hibernate.format_sql" value="true" /> 
             <property name="hibernate.hbm2ddl.auto" value="update" /> 
              
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5434/testeaula"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/hibernatemaven"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="javax.persistence.jdbc.password" value="cagema120x90"/>
+            <property name="javax.persistence.jdbc.password" value="unipar"/>
      </properties>
     </persistence-unit>
 </persistence>
