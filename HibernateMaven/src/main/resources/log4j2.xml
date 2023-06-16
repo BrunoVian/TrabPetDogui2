@@ -34,7 +34,7 @@
         
 	<Loggers>
                 <Logger name="br.com.unipar.frameworks" additivity="false" level="info">
-                    <AppenderRef ref="fileLogger" />
+                    <AppenderRef ref="persistenciaLogger" />
                     <AppenderRef ref="console"/>
                 </Logger>
                 

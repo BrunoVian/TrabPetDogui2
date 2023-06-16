@@ -16,20 +16,15 @@ public class PetDoguiLog {
     private static Logger logPERSISTENCIA = LogManager.getLogger(PERSISTENCIA);
     
     public static void infoGeral(String msg){
-        logGERAL.info("===== INICIO DA MENSAGEM INFO DE GERAL =====");
-        logGERAL.info("--Mensagem: " + msg);
-        logGERAL.info("===== FINAL DA MENSAGEM INFO DE GERAL =====");
-        
+        logGERAL.info("--Mensagem Log Geral: " + msg);        
     }
     
     public static void erroGeral(Exception ex){
         
-        logGERAL.info("====== INICIO DO ERRO DE GERAL ======");
-        logGERAL.error(ex.getMessage());
+        logGERAL.error("--Mensagem Log Error: ",ex.getMessage());
         for(StackTraceElement el : ex.getStackTrace())
-            logGERAL.error((el.toString()));
-        logGERAL.info("====== FIM DO ERRO DE GERAL ======");
-        
+            logGERAL.error(( el.toString()));
+       
     }
     
 }

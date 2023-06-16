@@ -1,5 +1,6 @@
 package br.com.unipar.frameworks.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,7 +20,7 @@ public class Endereco {
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_cidade")
     private Cidade cidade;
     

@@ -1,5 +1,6 @@
 package br.com.unipar.frameworks.hibernatemaven;
 
+import br.com.unipar.frameworks.hibernatemaven.frames.MenuPrincipal;
 import br.com.unipar.frameworks.model.Cidade;
 import br.com.unipar.frameworks.model.Cliente;
 import br.com.unipar.frameworks.model.Endereco;
