@@ -4,16 +4,21 @@
  */
 package br.com.unipar.frameworks.hibernatemaven.frames;
 
+import br.com.unipar.frameworks.hibernatemaven.tableModels.ListaClienteTableModel;
+import br.com.unipar.frameworks.hibernatemaven.tableModels.ListaPetTableModel;
 import br.com.unipar.frameworks.model.Cidade;
 import br.com.unipar.frameworks.model.Cliente;
 import br.com.unipar.frameworks.model.Endereco;
+import br.com.unipar.frameworks.model.Pet;
 import br.com.unipar.frameworks.model.dao.CidadeDAO;
 import br.com.unipar.frameworks.model.dao.ClienteDAO;
 import br.com.unipar.frameworks.model.dao.EnderecoDAO;
+import br.com.unipar.frameworks.model.dao.PetDAO;
 import java.awt.Component;
 import java.awt.Container;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -30,6 +35,7 @@ public class CadCliente extends javax.swing.JFrame {
     public CadCliente() {
         initComponents();
         atualizaCidade();
+        atualizaLista();
     }
 
     /**
@@ -41,6 +47,8 @@ public class CadCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -67,6 +75,22 @@ public class CadCliente extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jButtonSalvar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableClientes = new javax.swing.JTable();
+        jSeparator3 = new javax.swing.JSeparator();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -80,7 +104,7 @@ public class CadCliente extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(209, 209, 209)
+                .addGap(191, 191, 191)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -107,10 +131,10 @@ public class CadCliente extends javax.swing.JFrame {
 
         jLabel5.setText("Email:");
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("Dados Básicos");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("Endereço");
 
         jLabel8.setText("Logradouro:");
@@ -153,14 +177,37 @@ public class CadCliente extends javax.swing.JFrame {
             }
         });
 
+        jTableClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTableClientes);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jSeparator3)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(24, 24, 24)
@@ -209,18 +256,17 @@ public class CadCliente extends javax.swing.JFrame {
                                                 .addComponent(jLabel12)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(jComboBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                        .addGap(0, 17, Short.MAX_VALUE))
+                        .addGap(0, 14, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jSeparator1))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSeparator2)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,11 +306,15 @@ public class CadCliente extends javax.swing.JFrame {
                     .addComponent(jComboBoxCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonSalvar)
-                    .addComponent(jButtonCancelar))
-                .addGap(0, 25, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -281,23 +331,38 @@ public class CadCliente extends javax.swing.JFrame {
 
     private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
 
-        cliente.setNome(jTextFieldNome.getText());
-        cliente.setAtivo(true);
-        cliente.setCpf(jTextFieldCpf.getText());
-        cliente.setEmail(jTextFieldEmail.getText());
+        CidadeDAO cidadeDAO = new CidadeDAO();
+        
+        
+        
+        if (jTextFieldNome.getText().equals("") || jTextFieldCpf.equals("")
+                || jTextFieldEmail.getText().equals("") || jTextFieldBairro.getText().equals("")
+                || jTextFieldCep.getText().equals("") || jTextFieldLogra.getText().equals("")) {
+            
+            JOptionPane.showMessageDialog(null, "Há Campos Vazios!", "Atenção", JOptionPane.WARNING_MESSAGE);
 
-        endereco.setBairro(jTextFieldBairro.getText());
-        endereco.setCep(jTextFieldCep.getText());
-        endereco.setLogradouro(jTextFieldLogra.getText());
-        endereco.setNumero(jTextFieldNum.getText());
-        endereco.setCliente(cliente);
+        } else {
+            cliente.setNome(jTextFieldNome.getText());
+            cliente.setAtivo(true);
+            cliente.setCpf(jTextFieldCpf.getText());
+            cliente.setEmail(jTextFieldEmail.getText());
 
-        ClienteDAO clienteDAO = new ClienteDAO();
-        clienteDAO.save(cliente);
-        EnderecoDAO enderecoDAO = new EnderecoDAO();
-        enderecoDAO.save(endereco);
-    
-        limparCampos();
+            endereco.setBairro(jTextFieldBairro.getText());
+            endereco.setCep(jTextFieldCep.getText());
+            endereco.setLogradouro(jTextFieldLogra.getText());
+            endereco.setNumero(jTextFieldNum.getText());
+            endereco.setCliente(cliente);
+
+            ClienteDAO clienteDAO = new ClienteDAO();
+            clienteDAO.save(cliente);
+            EnderecoDAO enderecoDAO = new EnderecoDAO();
+            enderecoDAO.save(endereco);
+
+            atualizaLista();
+            limparCampos();
+        }
+
+
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jComboBoxCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCidadeActionPerformed
@@ -329,6 +394,15 @@ public class CadCliente extends javax.swing.JFrame {
         jTextFieldNum.setText("");
         jComboBoxCidade.setSelectedIndex(0);
 
+    }
+
+    private void atualizaLista() {
+        ClienteDAO dao = new ClienteDAO();
+
+        List<Cliente> listClientes = dao.findAll();
+        ListaClienteTableModel model
+                = new ListaClienteTableModel(listClientes);
+        jTableClientes.setModel(model);
     }
 
     /**
@@ -383,8 +457,13 @@ public class CadCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableClientes;
     private javax.swing.JTextField jTextFieldBairro;
     private javax.swing.JTextField jTextFieldCep;
     private javax.swing.JTextField jTextFieldCod;

@@ -73,7 +73,9 @@ public class ConsultaPet extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(jTablePets);
 
-        jButtonSelecionarPet.setText("Selecionar");
+        jButtonSelecionarPet.setBackground(new java.awt.Color(0, 153, 51));
+        jButtonSelecionarPet.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonSelecionarPet.setText("Selecionar Pet");
         jButtonSelecionarPet.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSelecionarPetActionPerformed(evt);
@@ -84,10 +86,11 @@ public class ConsultaPet extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jButtonSelecionarPet, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
