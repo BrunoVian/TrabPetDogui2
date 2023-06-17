@@ -20,6 +20,6 @@ public class HibernateMaven {
         } catch (Exception e) {
             PetDoguiLog.erroPersistencia(e);
         }
-        PetDoguiLog.infoGeral("TESTE LOG");
+        PetDoguiLog.infoGeral("PetDogui Inciado");
     }
 }

@@ -6,15 +6,22 @@ import br.com.unipar.frameworks.model.Agendamento;
 import br.com.unipar.frameworks.model.Pet;
 import br.com.unipar.frameworks.model.dao.AgendamentoDAO;
 import br.com.unipar.frameworks.model.dao.PetDAO;
+import br.com.unipar.frameworks.model.util.PetDoguiLog;
 import java.awt.HeadlessException;
 import java.util.List;
 import javax.persistence.PersistenceException;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import org.hibernate.HibernateException;
 
 public class CadPet extends javax.swing.JFrame {
+    
+    PetDoguiLog log = new PetDoguiLog();
 
     Pet pet = new Pet();
+    PetDAO petDAO = new PetDAO();
 
     public CadPet() {
         initComponents();
@@ -39,12 +46,12 @@ public class CadPet extends javax.swing.JFrame {
         jTextAreaObs = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
         jButtonSalvar = new javax.swing.JButton();
-        jButtonCancelar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jTextFieldCliente = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableListaPet = new javax.swing.JTable();
+        jButtonExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -108,15 +115,6 @@ public class CadPet extends javax.swing.JFrame {
             }
         });
 
-        jButtonCancelar.setBackground(new java.awt.Color(204, 0, 0));
-        jButtonCancelar.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonCancelar.setText("Cancelar");
-        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelarActionPerformed(evt);
-            }
-        });
-
         jLabel7.setText("Cliente:*");
 
         jTextFieldCliente.setEditable(false);
@@ -130,7 +128,7 @@ public class CadPet extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableListaPet.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -141,7 +139,16 @@ public class CadPet extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(jTableListaPet);
+
+        jButtonExcluir.setBackground(new java.awt.Color(204, 0, 0));
+        jButtonExcluir.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonExcluir.setText("Cancelar");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -149,42 +156,44 @@ public class CadPet extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jTextFieldCod, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextFieldCliente)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jTextFieldTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(jTextFieldCod, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel4)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jComboBoxSexo, 0, 105, Short.MAX_VALUE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(11, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jTextFieldCliente)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jTextFieldTamanho, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel4)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jComboBoxSexo, 0, 105, Short.MAX_VALUE)
+                                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(149, 149, 149)
+                                .addComponent(jButtonSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 5, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -216,9 +225,9 @@ public class CadPet extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -244,19 +253,23 @@ public class CadPet extends javax.swing.JFrame {
         jTextFieldCliente.setText(dialogForm.
                 getClienteSelecionado().getNome());
         pet.setCliente(dialogForm.getClienteSelecionado());
-
+        log.infoFrames("Frame de Seleção de Cliente Aberto");
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
         limpaCampos();
-    }//GEN-LAST:event_jButtonCancelarActionPerformed
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    public void excluirPet() {
+       petDAO.delete(petDAO.findById(Long.parseLong((String) jTableListaPet.getValueAt(jTableListaPet.getSelectedRow(), 0))));
+    }
 
     public void salvarPet() {
 
         try {
             if (jTextFieldNome.getText().equals("") || jTextFieldTamanho.getText().equals("")
                     || jComboBoxSexo.getSelectedItem() == null) {
-               
+
                 JOptionPane.showMessageDialog(null, "Há campos vazios, verifique!", "Atenção", JOptionPane.WARNING_MESSAGE);
 
             } else {
@@ -265,10 +278,10 @@ public class CadPet extends javax.swing.JFrame {
                 pet.setSexo(jComboBoxSexo.getItemAt(jComboBoxSexo.getSelectedIndex()));
                 pet.setTamanho(jTextFieldTamanho.getText());
 
-                PetDAO petDAO = new PetDAO();
                 petDAO.save(pet);
 
                 limpaCampos();
+                atualizaLista();
             }
         } catch (HeadlessException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -282,14 +295,14 @@ public class CadPet extends javax.swing.JFrame {
         jTextFieldTamanho.setText("");
         jTextFieldCliente.setText("");
     }
-    
+
     private void atualizaLista() {
         PetDAO dao = new PetDAO();
 
         List<Pet> listPets = dao.findAll();
         ListaPetTableModel model
                 = new ListaPetTableModel(listPets);
-        jTable1.setModel(model);
+        jTableListaPet.setModel(model);
     }
 
     /**
@@ -327,9 +340,59 @@ public class CadPet extends javax.swing.JFrame {
         });
     }
 
+    public JComboBox<String> getjComboBoxSexo() {
+        return jComboBoxSexo;
+    }
+
+    public void setjComboBoxSexo(JComboBox<String> jComboBoxSexo) {
+        this.jComboBoxSexo = jComboBoxSexo;
+    }
+
+    public JTextArea getjTextAreaObs() {
+        return jTextAreaObs;
+    }
+
+    public void setjTextAreaObs(JTextArea jTextAreaObs) {
+        this.jTextAreaObs = jTextAreaObs;
+    }
+
+    public JTextField getjTextFieldCliente() {
+        return jTextFieldCliente;
+    }
+
+    public void setjTextFieldCliente(JTextField jTextFieldCliente) {
+        this.jTextFieldCliente = jTextFieldCliente;
+    }
+
+    public JTextField getjTextFieldCod() {
+        return jTextFieldCod;
+    }
+
+    public void setjTextFieldCod(JTextField jTextFieldCod) {
+        this.jTextFieldCod = jTextFieldCod;
+    }
+
+    public JTextField getjTextFieldNome() {
+        return jTextFieldNome;
+    }
+
+    public void setjTextFieldNome(JTextField jTextFieldNome) {
+        this.jTextFieldNome = jTextFieldNome;
+    }
+
+    public JTextField getjTextFieldTamanho() {
+        return jTextFieldTamanho;
+    }
+
+    public void setjTextFieldTamanho(JTextField jTextFieldTamanho) {
+        this.jTextFieldTamanho = jTextFieldTamanho;
+    }
+    
+    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JComboBox<String> jComboBoxSexo;
     private javax.swing.JLabel jLabel1;
@@ -342,7 +405,7 @@ public class CadPet extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableListaPet;
     private javax.swing.JTextArea jTextAreaObs;
     private javax.swing.JTextField jTextFieldCliente;
     private javax.swing.JTextField jTextFieldCod;

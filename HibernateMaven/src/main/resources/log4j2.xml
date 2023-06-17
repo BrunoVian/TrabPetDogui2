@@ -12,7 +12,7 @@
                 </Console>
         
 		<RollingFile name="fileLogger"
-			fileName="${basePath}/geral.log"
+			fileName="${basePath}/persistencia.log"
 			filePattern="${basePath}/geral-%d{yyyy-MM-dd}.log">
 			<PatternLayout>
 				<pattern>[%-5level] %d{dd/MM/yyyy HH:mm:ss} - %msg%n
@@ -36,6 +36,7 @@
                 <Logger name="br.com.unipar.frameworks" additivity="false" level="info">
                     <AppenderRef ref="persistenciaLogger" />
                     <AppenderRef ref="console"/>
+                    <AppenderRef ref="fileLogger" />
                 </Logger>
                 
                  <Root level="info" additivity="false">

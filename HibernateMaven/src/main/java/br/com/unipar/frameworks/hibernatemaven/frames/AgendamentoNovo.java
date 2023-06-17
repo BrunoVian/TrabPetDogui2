@@ -10,6 +10,7 @@ import br.com.unipar.frameworks.model.dao.AgendamentoDAO;
 import br.com.unipar.frameworks.model.dao.ClienteDAO;
 import br.com.unipar.frameworks.model.dao.ServicoDAO;
 import br.com.unipar.frameworks.model.util.EntityManagerUtil;
+import br.com.unipar.frameworks.model.util.PetDoguiLog;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,6 +22,7 @@ public class AgendamentoNovo extends javax.swing.JFrame {
     private ServicoDAO daoServico;
     private Agendamento agendamento = new Agendamento();
     private List<Servico> servicosSelecionados;
+    PetDoguiLog log = new PetDoguiLog();
 
     public AgendamentoNovo() {
         EntityManagerUtil.getEntityManagerFactory();
@@ -304,8 +306,10 @@ public class AgendamentoNovo extends javax.swing.JFrame {
                     getPetSelecionado().getNome());
 
             agendamento.setPet(dialogForm.getPetSelecionado());
+            log.infoFrames("Frame Seleção de Pet Aberto");
+
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
+            log.erroPersistencia(ex);
         }
 
     }//GEN-LAST:event_jButtonConsultarPetActionPerformed

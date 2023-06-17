@@ -4,7 +4,11 @@
  */
 package br.com.unipar.frameworks.hibernatemaven.frames;
 
+import br.com.unipar.frameworks.model.util.PetDoguiLog;
+
 public class MenuPrincipal extends javax.swing.JFrame {
+
+    PetDoguiLog log = new PetDoguiLog();
 
     public MenuPrincipal() {
         initComponents();
@@ -75,17 +79,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jMenuItemClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemClienteActionPerformed
         CadCliente frm = new CadCliente();
         frm.setVisible(true);
+        log.infoFrames("Frame Cadastro de Cliente Aberto");
     }//GEN-LAST:event_jMenuItemClienteActionPerformed
 
     private void jMenuItemPetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemPetActionPerformed
-       CadPet frm = new CadPet();
-       frm.setVisible(true);
-
+        CadPet frm = new CadPet();
+        frm.setVisible(true);
+        log.infoFrames("Frame Cadastro de Pet Aberto");
     }//GEN-LAST:event_jMenuItemPetActionPerformed
 
     private void jMenuItemAgendamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAgendamentoActionPerformed
         AgendamentoNovo frm = new AgendamentoNovo();
         frm.setVisible(true);
+        log.infoFrames("Frame Agendamento Aberto");
     }//GEN-LAST:event_jMenuItemAgendamentoActionPerformed
 
     /**
